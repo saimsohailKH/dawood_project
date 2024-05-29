@@ -25,13 +25,13 @@ class Customer < User
 end
 
 class Order
-  attr_accessor :id, :customer_id, :total_amount, :order_item, :order_status
+  attr_accessor :id, :customer_id, :order_total_amount, :order_items, :order_status
 
   def initialize(id, order_items)
     @id           = id
     @customer_id  = nil
-    @total_amount = 0.0
-    @order_item   = order_item
+    @order_total_amount = 0.0
+    @order_items  = order_items
     @order_status = "pending"
   end
 
@@ -46,23 +46,37 @@ class Order
   def order_canceled
     order_status = "canceled"
   end
+
+  def calculate_total_amount
+    order_items.each do |n|
+      n.calculate_order_item_total_amount
+      total_amount = total_amount + n.order_item_total_amount
+    end
+  end
 end
 
 class OrderItem
-  attr_accessor :id, :item_id, :quantity, :total_amount
+  attr_accessor :id, :item, :quantity, :order_item_total_amount
 
-  def initialize(id,item_id,quantity,total_amount)
+  def initialize(id,item,quantity)
     @id           = id 
-    @item_id      = item_id
+    @item         = item
     @quantity     = quantity
-    @total_amount = total_amount
+    @order_item_total_amount = order_item_total_amount
   end
 
+  def calculate_order_item_total_amount
+    order_item_total_amount = quantity * item.price
+  end
 end
 
+class Item
+  attr_accessor :name, :id, :price
 
-order = Order.new(1, [order_item1, order_item2])
+  def initialize(name,id,price)
+    @name  = name
+    @id    = id 
+    @price = price
+  end
+end
 
-customer = Customer.new('dawood', 1, 'email', '0233', 'model town')
-
-customer.create_oder(order)
