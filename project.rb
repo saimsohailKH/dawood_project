@@ -80,3 +80,37 @@ class Item
   end
 end
 
+item1 = Item.new("clock", 777, 900)
+item2 = Item.new("glass", 999, 300)
+item3 = Item.new("table", 555, 1200)
+
+ordered_item1 = OrderItem.new(345,item1,2)
+ordered_item2 = OrderItem.new(346,item2,2)
+ordered_item3 = OrderItem.new(347,item3,2)
+
+order_saim = Order.new(123,[ordered_item1, ordered_item2, ordered_item3])
+
+customer = Customer.new("Dawood", 003, "dawood@yahoo.com", "03077579019", "st twn")
+
+name = "Dawood".
+
+
+class DawoodStore
+  attr_accessor :item_list
+
+  def initialize
+    item1 = Item.new("clock", 777, 900)
+    item2 = Item.new("glass", 999, 300)
+    item3 = Item.new("table", 555, 1200)
+    @item_list = [item1,item2,item3]
+  end
+
+  def run
+    print "Enter 1 to see list of items: "
+    selection = gets.chomp
+
+    if selection == '1'
+      puts item_list.map { |item| item.name }
+    end
+  end
+end
