@@ -1,5 +1,4 @@
 # cst requirements
-# add to cat
 # items 
 # oder
 
