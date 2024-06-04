@@ -80,37 +80,59 @@ class Item
   end
 end
 
-item1 = Item.new("clock", 777, 900)
-item2 = Item.new("glass", 999, 300)
-item3 = Item.new("table", 555, 1200)
+# item1 = Item.new("clock", 777, 900)
+# item2 = Item.new("glass", 999, 300)
+# item3 = Item.new("table", 555, 1200)
 
-ordered_item1 = OrderItem.new(345,item1,2)
-ordered_item2 = OrderItem.new(346,item2,2)
-ordered_item3 = OrderItem.new(347,item3,2)
+# ordered_item1 = OrderItem.new(345,item1,2)
+# ordered_item2 = OrderItem.new(346,item2,2)
+# ordered_item3 = OrderItem.new(347,item3,2)
 
-order_saim = Order.new(123,[ordered_item1, ordered_item2, ordered_item3])
+# order_saim = Order.new(123,[ordered_item1, ordered_item2, ordered_item3])
 
-customer = Customer.new("Dawood", 003, "dawood@yahoo.com", "03077579019", "st twn")
+# customer = Customer.new("Dawood", 003, "dawood@yahoo.com", "03077579019", "st twn")
 
-name = "Dawood".
+# name = "Dawood"
 
 
 class DawoodStore
-  attr_accessor :item_list
+  attr_accessor :item_list, :admin
 
   def initialize
-    item1 = Item.new("clock", 777, 900)
-    item2 = Item.new("glass", 999, 300)
-    item3 = Item.new("table", 555, 1200)
+    item1      = Item.new("clock", 777, 900)
+    item2      = Item.new("glass", 999, 300)
+    item3      = Item.new("table", 555, 1200)
     @item_list = [item1,item2,item3]
+    @admin     = Admin.new('Saim',456,'saim@yahoo.com','03245656568','mdl twn')
   end
 
   def run
     print "Enter 1 to see list of items: "
+    print "Enter 2 to add new items: "
     selection = gets.chomp
 
     if selection == '1'
       puts item_list.map { |item| item.name }
+    elsif selection == '2'
+      admin.add_new_listing
     end
+  end
+end
+
+class Admin < User
+
+  def initialize(name,id,email,ph_no,address)
+    super(name,id,email,ph_no,address)
+  end
+
+  def add_new_listing
+    print "Enter ID of Item: "
+    id = gets.chomp
+    print "Enter Name of Item: "
+    name = gets.chomp
+    print "Enter Price of Item: "
+    price = gets.chomp
+
+    Item.new(id, name, price)
   end
 end
